@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 32</title>
+</head>
+<body>
+    <script>
+        const value1 = "25.3";
+        const value2 = "786.867";
+
+
+        const result = Number(value1) + Number(value2);
+        const roundedSum = Math.ceil(result);
+        const formattedSum = new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(roundedSum);
+
+        console.log('Сумма переменных:', result);
+        console.log('Округленная сумма вверх:', roundedSum);
+        console.log('Отформатированная сумма с валютой:', formattedSum);
+    </script>
+</body>
+</html>

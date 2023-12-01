@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 33</title>
+</head>
+<body>
+    <script>
+        // Примитивные значения
+        const undefinedValue = undefined;
+        const nullValue = null;
+        const isUserLoggedIn = true;
+        const userAge = 42;
+        const bigIntValue = BigInt(9007199254740991); // Максимальное значение для 64-битных целых чисел
+        const uniqueSymbol = Symbol('#');
+        const userName = 'Steve';
+
+        // Объекты
+        const personInfo = { firstName: 'Alex' };
+        const numericArray = [1, 2, 3];
+        const customFunction = function() {};
+        const currentDate = new Date();
+
+
+        // Преобразование каждой переменной
+        console.log('undefinedValue:', Number(undefinedValue), Boolean(undefinedValue), String(undefinedValue));
+        console.log('nullValue:', Number(nullValue), Boolean(nullValue), String(nullValue));
+        console.log('isUserLoggedIn:', Number(isUserLoggedIn), Boolean(isUserLoggedIn), String(isUserLoggedIn));
+        console.log('userAge:', Number(userAge), Boolean(userAge), String(userAge));
+        console.log('bigIntValue:', Number(bigIntValue), Boolean(bigIntValue), String(bigIntValue));
+        console.log('uniqueSymbol:', Boolean(uniqueSymbol), String(uniqueSymbol));
+        console.log('userName:', Number(userName), Boolean(userName), String(userName));
+
+        // Преобразование объектов
+        console.log('personInfo:', Number(personInfo), Boolean(personInfo), String(personInfo));
+        console.log('numericArray:', Number(numericArray), Boolean(numericArray), String(numericArray));
+        console.log('customFunction:', Number(customFunction), Boolean(customFunction), String(customFunction));
+        console.log('currentDate:', Number(currentDate), Boolean(currentDate), String(currentDate));
+    </script>
+</body>
+</html>
