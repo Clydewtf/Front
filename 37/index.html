@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 37.1</title>
+</head>
+<body>
+    <script>
+        // function declaration (normal)
+        function Declaration(name) {
+            return 'Привет ' + name + '!';
+        }
+
+        // function expression (normal)
+        const Expression = function(name) {
+            return 'Привет ' + name + '!';
+        };
+
+        // function expression (arrow) - вариация 1
+        const Arrow1 = (name) => 'Привет ' + name + '!';
+
+        // function expression (arrow) - вариация 2
+        const Arrow2 = name => `Привет ${name}!`;
+
+        console.log(Declaration('Alex'));
+        console.log(Expression('Alex'));
+        console.log(Arrow1('Alex'));
+        console.log(Arrow2('Alex'));
+    </script>
+</body>
+</html>

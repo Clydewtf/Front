@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 38.3</title>
+</head>
+<body>
+    <script>
+        const calculate = (x) => {
+            return (y) => {
+                return (z) => {
+                    return x + y + z;
+                };
+            };
+        };
+
+        const sum = calculate(1)(2)(3);
+        console.log(sum);
+    </script>
+</body>
+</html>
