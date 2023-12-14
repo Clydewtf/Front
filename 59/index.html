@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 59</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            margin: 0;
+        }
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+        .container{
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 50px 0;
+        }
+        .search{
+            display: flex;
+            gap: 6px;
+        }
+        .list__element--active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search">
+            <input class="search__input" type="text" name="" id="">
+            <button class="search__btn" type="button">Найти</button>
+            <button class="search__clear" type="button">Очистить</button>
+        </div>
+        <ul class="list"></ul>
+    </div>
+
+    <script>
+
+        const words = ['День','Том','Гость','Выборы','Солнце','Ход','Речь','Смена','Бизнес','Качество','Республика','Сердце','Администрация','Поезд','Работник','Ресурс','Часть','Изучение','Бок','Понимание','Животное','Утро','Правда','Личность','Звонок','Урок','Командир','Американец','Заседание','Образ'];
+
+        const list = document.querySelector('.list')
+        const input = document.querySelector('.search__input')
+
+        // Функция для создания элементов li
+        function createListItem(word) {
+            const li = document.createElement('li');
+            li.textContent = word;
+            return li;
+        }
+
+        // Функция для отображения списка
+        function renderList(filteredWords) {
+            // Очищаем текущий список
+            list.innerHTML = '';
+
+            // Создаем новые элементы li
+            filteredWords.forEach((word) => {
+                const li = createListItem(word);
+                list.appendChild(li);
+            });
+        }
+
+        // Обработчик события клика на кнопку "Найти"
+        document.querySelector('.search__btn').addEventListener('click', () => {
+            const searchTerm = input.value.toLowerCase();
+            const filteredWords = words.filter(word => word.toLowerCase().includes(searchTerm));
+            renderList(filteredWords);
+        });
+
+        // Обработчик события клика на кнопку "Очистить"
+        document.querySelector('.search__clear').addEventListener('click', () => {
+            input.value = '';
+            renderList(words);
+        });
+
+        // Обработчик делегированного события клика на элемент списка
+        list.addEventListener('click', (event) => {
+            const listItem = event.target.closest('li');
+            if (listItem) {
+                listItem.classList.toggle('list__element--active');
+            }
+        });
+        
+        renderList(words);
+    </script>
+</body>
+</html>
