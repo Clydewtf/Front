@@ -1,3 +1,7 @@
+html {
+    font-family: 'Lemon', sans-serif;
+}
+
 img {
     max-inline-size: 100%;
     block-size: auto;
@@ -34,4 +38,9 @@ body{
 .icon {
   width: 24px;
   height: 24px;
+}
+
+@font-face {
+    font-family: 'Lemon';
+    src: url('Lemon-Regular.ttf') format('truetype');
 }
