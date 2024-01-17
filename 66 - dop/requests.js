@@ -1,54 +1,62 @@
-export const formatPrice = (price) => {
-    const formatter = Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-    });
-    return formatter.format(price);
-};
+export function fetchProducts() {
+    const url = 'https://dummyjson.com/products/';
+    return fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            const productsArray = Array.isArray(data.products) ? data.products : [data.products];
+            productsArray.forEach(addProductToContainer);
+        })
+        .catch((error) => {
+            console.error('Error fetching products:', error);
+        });
+}
 
-export const getProducts = async () => {
-    try {
-        const response = await fetch('https://dummyjson.com/products/');
-        const data = await response.json();
-        const productsArray = Array.isArray(data.products) ? data.products : [data.products];
-        return productsArray;
-    } catch (error) {
-        console.error('Ошибка при запросе товаров:', error);
-        throw error;
-    }
-};
+export function fetchCategories() {
+    const url = 'https://dummyjson.com/products/categories';
+    return fetch(url)
+        .then((response) => response.json())
+        .then((categories) => {
+            categories.forEach((category) => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                select.appendChild(option);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching categories:', error);
+            return []; // Возвращаем пустой массив в случае ошибки
+        });
+}
 
-export const getCategories = async () => {
-    try {
-        const response = await fetch('https://dummyjson.com/products/categories');
-        const categories = await response.json();
-        return categories;
-    } catch (error) {
-        console.error('Ошибка при запросе категорий:', error);
-        throw error;
-    }
-};
+export function fetchProductsByCategory(category) {
+    const url = `https://dummyjson.com/products/category/${category}`;
+    return fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            const productsArray = Array.isArray(data.products) ? data.products : [data.products];
 
-export const getProductsByCategory = async (category) => {
-    try {
-        const response = await fetch(`https://dummyjson.com/products/category/${category}`);
-        const data = await response.json();
-        const productsArray = Array.isArray(data.products) ? data.products : [data.products];
-        return productsArray;
-    } catch (error) {
-        console.error('Ошибка при запросе товаров по категории:', error);
-        throw error;
-    }
-};
+            // Очищаем текущий контейнер и добавляем новые товары
+            productsContainer.innerHTML = '';
+            productsArray.forEach(addProductToContainer);
+        })
+        .catch((error) => {
+            console.error('Error fetching products by category:', error);
+        });
+}
 
-export const getSearchResults = async (word) => {
-    try {
-        const response = await fetch(`https://dummyjson.com/products/search?q=${word}`);
-        const data = await response.json();
-        const productsArray = Array.isArray(data.products) ? data.products : [data.products];
-        return productsArray;
-    } catch (error) {
-        console.error('Ошибка при поиске товаров:', error);
-        throw error;
-    }
-};
+export function fetchSearchByProducts(query) {
+    const url = `https://dummyjson.com/products/search?q=${query}`;
+    return fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            const productsArray = Array.isArray(data.products) ? data.products : [data.products];
+
+            // Очищаем текущий контейнер и добавляем новые товары
+            productsContainer.innerHTML = '';
+            productsArray.forEach(addProductToContainer);
+        })
+        .catch((error) => {
+            console.error('Error searching for products:', error);
+        });
+}
