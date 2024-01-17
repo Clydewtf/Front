@@ -161,66 +161,71 @@
         };
 
         // Функция для получения всех товаров
-        const getProducts = async () => {
-            try {
-                const response = await fetch('https://dummyjson.com/products/');
-                const data = await response.json();
-
-                const productsArray = Array.isArray(data.products) ? data.products : [data.products];
-                productsArray.forEach(addProductToContainer);
-            } catch (error) {
-                console.error('Ошибка при запросе товаров:', error);
-            }
-        };
+        function fetchProducts() {
+            const url = 'https://dummyjson.com/products/';
+            return fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    const productsArray = Array.isArray(data.products) ? data.products : [data.products];
+                    productsArray.forEach(addProductToContainer);
+                })
+                .catch((error) => {
+                    console.error('Error fetching products:', error);
+                });
+        }
 
         // Функция для получения всех категорий
-        const getCategories = async () => {
-            try {
-                const response = await fetch('https://dummyjson.com/products/categories');
-                const categories = await response.json();
-
-                categories.forEach((category) => {
-                    const option = document.createElement('option');
-                    option.value = category;
-                    option.textContent = category;
-                    select.appendChild(option);
+        function fetchCategories() {
+            const url = 'https://dummyjson.com/products/categories';
+            return fetch(url)
+                .then((response) => response.json())
+                .then((categories) => {
+                    categories.forEach((category) => {
+                        const option = document.createElement('option');
+                        option.value = category;
+                        option.textContent = category;
+                        select.appendChild(option);
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error fetching categories:', error);
+                    return []; // Возвращаем пустой массив в случае ошибки
                 });
-            } catch (error) {
-                console.error('Ошибка при запросе категорий:', error);
-            }
-        };
+        }
 
         // Функция для получения товаров по категории
-        const fetchProductsByCategory = async (category) => {
-            try {
-                const response = await fetch(`https://dummyjson.com/products/category/${category}`);
-                const data = await response.json();
+        function fetchProductsByCategory(category) {
+            const url = `https://dummyjson.com/products/category/${category}`;
+            return fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    const productsArray = Array.isArray(data.products) ? data.products : [data.products];
 
-                const productsArray = Array.isArray(data.products) ? data.products : [data.products];
-
-                // Очищаем текущий контейнер и добавляем новые товары
-                productsContainer.innerHTML = '';
-                productsArray.forEach(addProductToContainer);
-            } catch (error) {
-                console.error('Ошибка при запросе товаров по категории:', error);
-            }
-        };
+                    // Очищаем текущий контейнер и добавляем новые товары
+                    productsContainer.innerHTML = '';
+                    productsArray.forEach(addProductToContainer);
+                })
+                .catch((error) => {
+                    console.error('Error fetching products by category:', error);
+                });
+        }
 
         // Функция для поиска товаров
-        const fetchSearchByProducts = async (word) => {
-            try {
-                const response = await fetch(`https://dummyjson.com/products/search?q=${word}`);
-                const data = await response.json();
+        function fetchSearchByProducts(query) {
+            const url = `https://dummyjson.com/products/search?q=${query}`;
+            return fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    const productsArray = Array.isArray(data.products) ? data.products : [data.products];
 
-                const productsArray = Array.isArray(data.products) ? data.products : [data.products];
-
-                // Очищаем текущий контейнер и добавляем новые товары
-                productsContainer.innerHTML = '';
-                productsArray.forEach(addProductToContainer);
-            } catch (error) {
-                console.error('Ошибка при поиске товаров:', error);
-            }
-        };
+                    // Очищаем текущий контейнер и добавляем новые товары
+                    productsContainer.innerHTML = '';
+                    productsArray.forEach(addProductToContainer);
+                })
+                .catch((error) => {
+                    console.error('Error searching for products:', error);
+                });
+        }
 
         // Обработчик выбора категории
         select.addEventListener('change', () => {
@@ -229,7 +234,7 @@
                 fetchProductsByCategory(selectedCategory);
             } else {
                 // Если выбрана опция "Выберите категорию", отображаем все товары
-                getProducts();
+                fetchProducts();
             }
         });
 
@@ -240,13 +245,13 @@
                 fetchSearchByProducts(searchWord);
             } else {
                 // Если поле поиска пустое, отображаем все товары
-                getProducts();
+                fetchProducts();
             }
         });
 
         // Загружаем все категории и товары при загрузке страницы
-        getCategories();
-        getProducts();
+        fetchCategories();
+        fetchProducts();
     </script>
 </body>
 </html>
