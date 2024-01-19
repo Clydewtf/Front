@@ -41,31 +41,29 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const input = document.querySelector('.js-input');
-            const button = document.querySelector('.js-button');
-            const nameSpan = document.querySelector('.js-name');
+        const input = document.querySelector('.js-input');
+        const button = document.querySelector('.js-button');
+        const nameSpan = document.querySelector('.js-name');
 
-            // При загрузке страницы проверяем, есть ли сохраненное значение в cookie
-            const savedName = Cookies.get('userName');
-            if (savedName) {
-                nameSpan.textContent = savedName;
+        // При загрузке страницы проверяем, есть ли сохраненное значение в cookie
+        const savedName = Cookies.get('userName');
+        if (savedName) {
+            nameSpan.textContent = savedName;
+        }
+
+        // Обработчик нажатия на кнопку "Сохранить"
+        button.addEventListener('click', function () {
+            // Получаем значение из input
+            const userName = input.value.trim();
+
+            // Проверяем, что значение не пустое
+            if (userName !== '') {
+                // Сохраняем значение в cookie на 3 дня
+                Cookies.set('userName', userName, { expires: 3 });
+
+                // Выводим значение в span
+                nameSpan.textContent = userName;
             }
-
-            // Обработчик нажатия на кнопку "Сохранить"
-            button.addEventListener('click', function () {
-                // Получаем значение из input
-                const userName = input.value.trim();
-
-                // Проверяем, что значение не пустое
-                if (userName !== '') {
-                    // Сохраняем значение в cookie на 3 дня
-                    Cookies.set('userName', userName, { expires: 3 });
-
-                    // Выводим значение в span
-                    nameSpan.textContent = userName;
-                }
-            });
         });
     </script>
 </body>
