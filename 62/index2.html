@@ -39,29 +39,27 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const input = document.querySelector('.js-input');
-            const button = document.querySelector('.js-button');
-            const nameSpan = document.querySelector('.js-name');
+        const input = document.querySelector('.js-input');
+        const button = document.querySelector('.js-button');
+        const nameSpan = document.querySelector('.js-name');
 
-            // При загрузке страницы проверяем, есть ли сохраненный объект в localStorage
-            const savedUserData = JSON.parse(localStorage.getItem('userData')) || {};
-            if (savedUserData && savedUserData.name) {
-                nameSpan.textContent = savedUserData.name;
+        // При загрузке страницы проверяем, есть ли сохраненный объект в localStorage
+        const savedUserData = JSON.parse(localStorage.getItem('userData')) || {};
+        if (savedUserData && savedUserData.name) {
+            nameSpan.textContent = savedUserData.name;
+        }
+
+        // Обработчик нажатия на кнопку "Сохранить"
+        button.addEventListener('click', function () {
+            const userName = input.value.trim();
+
+            if (userName !== '') {
+                const userData = { name: userName };
+
+                localStorage.setItem('userData', JSON.stringify(userData));
+
+                nameSpan.textContent = userName;
             }
-
-            // Обработчик нажатия на кнопку "Сохранить"
-            button.addEventListener('click', function () {
-                const userName = input.value.trim();
-
-                if (userName !== '') {
-                    const userData = { name: userName };
-
-                    localStorage.setItem('userData', JSON.stringify(userData));
-
-                    nameSpan.textContent = userName;
-                }
-            });
         });
     </script>
 </body>
